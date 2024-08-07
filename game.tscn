@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://btdk16480rlrm"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_kj217"]
+[ext_resource type="PackedScene" uid="uid://8jqsdeeu7l7j" path="res://Player.tscn" id="1_p47iu"]
+[ext_resource type="PackedScene" uid="uid://c7kolj0e42u3c" path="res://ball.tscn" id="3_08g4u"]
+[ext_resource type="PackedScene" uid="uid://cycruqbw431d7" path="res://Wnner.tscn" id="4_qytya"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_56d0a"]
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("player_one", "player_one_score", "player_two", "player_two_score", "ball", "winner_screen")]
+script = ExtResource("1_kj217")
+player_one = NodePath("Player1")
+player_one_score = NodePath("HBoxContainer/Player1Score")
+player_two = NodePath("Player2")
+player_two_score = NodePath("HBoxContainer/Player2Score")
+ball = NodePath("Ball")
+winner_screen = NodePath("Winner")
+
+[node name="Player2" parent="." instance=ExtResource("1_p47iu")]
+
+[node name="Player1" parent="." instance=ExtResource("1_p47iu")]
+
+[node name="Ball" parent="." instance=ExtResource("3_08g4u")]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 1152.0
+offset_bottom = 42.0
+alignment = 1
+
+[node name="Player1Score" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 30
+text = "1s"
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+texture = SubResource("CanvasTexture_56d0a")
+
+[node name="Player2Score" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "2s"
+
+[node name="Winner" parent="." instance=ExtResource("4_qytya")]
+visible = false
+
+[connection signal="area_entered" from="Ball" to="." method="_on_ball_area_entered"]
